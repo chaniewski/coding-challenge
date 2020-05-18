@@ -8,9 +8,9 @@ namespace ConstructionLine.CodingChallenge
 
         public string Name { get; }
 
-        public Size Size { get; set; }
+        public Size Size { get; }
 
-        public Color Color { get; set; }
+        public Color Color { get; }
 
         public Shirt(Guid id, string name, Size size, Color color)
         {
