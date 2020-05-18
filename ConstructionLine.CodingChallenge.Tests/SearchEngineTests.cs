@@ -20,8 +20,6 @@ namespace ConstructionLine.CodingChallenge.Tests
 
             var searchEngine = new SearchEngine(shirts);
 
-            // Slightly improved the usability of the API by moving the ownership of collections into SearchOption class
-            // This way it's not necessary to create the Colors and Sizes collection by the caller, just provide the values.
             var searchOptions = new SearchOptions
             {
                 Colors = { Color.Red },
@@ -47,10 +45,14 @@ namespace ConstructionLine.CodingChallenge.Tests
 
             var results = searchEngine.Search(searchOptions);
 
+            AssertResults(results.Shirts, searchOptions);
+            AssertSizeCounts(shirts.ToList(), searchOptions, results.SizeCounts);
+            AssertColorCounts(shirts.ToList(), searchOptions, results.ColorCounts);
+
             // NOTE: Normally, I prefer the more declarative way of making asserts,
             // but I understand the need of validating the results with code for this coding exercise.
-            // Please treat the assertions in this test as an indication of my style, I'll revert
-            // back to verification by provided routines in the base class for the remaining tests for brevity.
+            // Please treat the assertions below as an indication of my style, I'll revert
+            // to verification by provided routines in the base class for the remaining tests for brevity.
             Assert.That(results.Shirts, Has.Exactly(3).Items);
             Assert.That(results.Shirts.Select(s => s.Color), Is.All.EqualTo(Color.Red));
             Assert.That(results.Shirts.Select(s => s.Size), Is.EquivalentTo(Size.All));
